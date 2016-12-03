@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>hash锚点使用</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            (function(window){
+                window.addEventListener('hashchange',function(e){
+                    var hash=window.location.hash;
+                    // console.log(hash);
+                    switch(hash){
+                        case '#/index/':
+                            console.log('请求index页面');
+                            break;
+                        case '#/demo/':
+                            console.log('请求demo页面');
+                            break;
+                        case '#/app/':
+                            console.log('请求app页面');
+                            break;
+                        default:
+                            console.log('宝宝不知道你想干啥');
+                            break;
+                    }
+                    // console.log(e);
+                    // console.log(window.location.hash);
+                });
+            })(window);
+        </script>
+    </body>
+</html>

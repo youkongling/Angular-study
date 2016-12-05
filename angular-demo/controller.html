@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="HelloApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Angular的controller控制器使用</title>
+    </head>
+    <body>
+        <table ng-controller="AppController">
+            <tr>
+                <td>用户名：</td>
+                <td><input type="text" ng-model="user.username"></td>
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td><input type="password" ng-model="user.password"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="button" ng-click="login()" value="登陆"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>{{message}}</td>
+            </tr>
+        </table>
+        <script src="./node_modules/angular/angular.js" charset="utf-8"></script>
+        <script type="text/javascript">
+            //创建一个模块
+            var app=angular.module('HelloApp',[]);
+            //为这个模块创建一个控制器
+            app.controller('AppController',[
+                '$scope',
+                function($scope){
+                    // $scope.username='';
+                    // $scope.password='';
+
+                    //基础数据
+                    $scope.user={
+                        username:'',
+                        password:''
+                    };
+
+                    //行为数据
+                    $scope.login=function(){
+                        //因为数据的变化是双向的，所以界面上的值变化会同步到$scope上
+                        console.log($scope.user);
+                    }
+
+                    //请输入用户名  输入格式不合法
+                    $scope.message='请输入用户名';
+                    //$scope.message的变化取决于$scope.user的变化
+
+                    //官方的API中提供了一个$scope.$watch方法
+                    $scope.$watch('user.username',function(now,old){
+                        //当user.username发生变化时触发
+                        // console.log('now is '+now);
+                        // console.log('old is '+old);
+                        if(now){
+                            if(now.length<7){
+                                $scope.message='输入格式不合法';
+                            }else{
+                                $scope.message='';
+                            }
+                        }else{
+                            $scope.message='请输入用户名';
+                        }
+                    })
+
+                    //angular基本不用操作DOM，如果必要，可以使用angular提供的jqlite
+                    // angular.element('body');
+                }
+            ]);
+        </script>
+    </body>
+</html>
